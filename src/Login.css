@@ -1,0 +1,83 @@
+h1{
+    text-align: center;
+  }
+  
+  .formContainer{
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .formContainer form{
+    background-color: rgb(255, 255, 255);
+    border: 2px solid rgb(59, 152, 214);
+    width: 70%;
+    max-width: 400px;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 6px 6px 10px 0px rgba(83, 84, 85, 0.4);
+  }
+  
+  .uiForm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    height:400px;
+  }
+  
+  .formField{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .formField input{
+    background-color: aliceblue;
+    border: 1px solid rgb(127, 127, 131);
+    padding: 20px;
+    border-radius: 4px;
+  }
+  
+  .formField input:focus{
+    outline: none;
+  }
+  
+  .formField label{
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 3px;
+  }
+  
+  .loginButton{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 0px;
+  }
+  
+  button{
+    background-color: rgb(59, 152, 214);
+    width: 100%;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 30px;
+    color: aliceblue;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  button:hover{
+    background-color: rgb(43, 123, 177);
+  }
+  
+  .errorMsg {
+    color: red;
+    margin: 0;
+    align-self: flex-start;
+  }
