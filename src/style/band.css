@@ -1,0 +1,28 @@
+.band_title {
+    margin-bottom: 20px;
+}
+
+.band_container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+}
+
+.group_paper:hover {
+    cursor:pointer;
+    background-color: #eeeff1;
+}
+
+.group_paper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 180px;
+    height: 120px;
+}
+
+.group_name_id {
+    text-align: center;
+}
+

@@ -5,8 +5,19 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import axios from "axios";
+import "../style/ToDoList.css";
+import "../style/common.css"
+import Sidebar from './Sidebar';
 
+const token = localStorage.getItem("token")
 
+axios.interceptors.request.use(config => {
+  config.headers.Authorization = `Bearer ${token}`;
+  config.headers["Content-Type"] = "application/json";
+  return config;
+}, error => {
+  return Promise.reject(error);
+})
 
 
 class ToDoList extends Component {
@@ -18,37 +29,28 @@ class ToDoList extends Component {
         inputStart: new Date(),
         inputEnd: new Date(),
         formPosition: { top: 0, left: 0 }, // フォームの位置を管理
+        events:[]
       };
       this.ref = React.createRef();
-      this.myEvents = [
-        {
-          id: 0,
-          start: "2020-05-22 10:00:00",
-          end: "2020-05-22 11:00:00",
-        },
-        {
-          id: 1,
-          start: "2024-06-27 10:00:00",
-          end: "2024-06-27 11:00:00",
-        },
-      ];
-      
-  
       this.selEventID = null;
+      
 
     //  バインド　特定のコンテキストにおいて関数のthisの値を固定する．
     //   コールバックとうぃて使用されると，thisの値がよきしないものになる可能性がある．
       this.handleSelect = this.handleSelect.bind(this);
       this.handleClick = this.handleClick.bind(this);
       this.onAddEvent = this.onAddEvent.bind(this);
-      this.addEvent = this.addEvent.bind(this);
+      // this.addEvent = this.addEvent.bind(this);
       this.changeDateToString = this.changeDateToString.bind(this);
       this.onChangeEvent = this.onChangeEvent.bind(this);
-      this.changeEvent = this.changeEvent.bind(this);
+      // this.changeEvent = this.changeEvent.bind(this);
       this.onDeleteEvent = this.onDeleteEvent.bind(this);
+      this.fetchEvents = this.fetchEvents.bind(this);
     }
 
-    
+    componentDidMount(){
+      this.fetchEvents();
+    }
   
     renderForm() {
         const { top, left } = this.state.formPosition;
@@ -165,6 +167,17 @@ class ToDoList extends Component {
         );
       }
     
+    fetchEvents = () => {
+      axios.get("http://localhost:8000/api/events").then((res) =>{
+        const events = res.data.map(event => ({
+          id: event.id,
+          start: event.start_time,
+          end: event.end_time
+        }))
+        console.log("Fetched events:", events); // デバッグ用のログ
+        this.setState({events})
+      })
+    }
 
     handleSelect = (selectInfo) => {
     let start = new Date(selectInfo.start);
@@ -189,8 +202,17 @@ class ToDoList extends Component {
     
   
   handleClick = (info) => {
-    this.selEventID = info.event.id;
-    const selEvent = this.myEvents[info.event.id];
+    this.selEventID = parseInt(info.event.id,10);
+    // const selEvent = this.state.events[info.event.id];
+    console.log("Clicked event ID:", this.selEventID); // デバッグ用のログ
+    console.log("Fetched events:", this.state.events); // デバッグ用のログ
+    const selEvent = this.state.events.find(event => event.id === this.selEventID);
+
+    if (!selEvent) {
+      console.error(`Event with ID ${this.selEventID} not found`);
+      return; // selEvent が見つからなかった場合、処理を中止
+  }
+
     const start = new Date(selEvent.start);
     const end = new Date(selEvent.end);
     const formPosition = {
@@ -217,22 +239,25 @@ class ToDoList extends Component {
       return;
     }
     const event = {
-      start: starttime,
-      end: endtime,
+      start_time: starttime,
+      end_time: endtime,
     };
-    if (this.addEvent(event) === true) {
-      window.alert("設定しました");
-      this.setState({ formInview: false });
-    }
+
+    axios.post("http://localhost:8000/api/events",event).then((res) =>{
+      if (res.status === 200){
+        this.fetchEvents();
+        this.setState({formInview:false});
+        window.alert("設定しました")
+      }
+    })
+    .catch(error => {
+      console.error("Error",error);
+    });
+
+   
   }
 
   
-  addEvent = (ev) => {
-    ev.id = this.getID();
-    this.myEvents.push(ev);
-    this.ref.current.getApi().addEvent(ev);
-    return true;
-  };
 
   
   sortEventID = (a, b) => {
@@ -276,29 +301,30 @@ class ToDoList extends Component {
       }
 
       const event = {
-        start: starttime,
-        end: endtime,
+        start_time: starttime,
+        end_time: endtime,
         id: this.selEventID,
       };
-      if (this.changeEvent(event) === true) {
-        window.alert("イベントを変更しました。");
-        this.setState({ formInview: false });
+
+      if (this.selEventID !== null) {
+        let EventID = this.selEventID;
+        let delevent = this.ref.current.getApi().getEventById(EventID);
+        if (delevent) {
+          // delevent.remove();
+          axios.put("http://localhost:8000/api/events/" + this.selEventID,event).then(() => {
+        })
+        }
+
+      window.alert("イベントを変更しました。");
+      this.setState({ formInview: false });
+      this.fetchEvents();
       }
-    } else {
-      return;
-    }
+
   }
+}
 
   
-  changeEvent = (ev) => {
-    this.myEvents[ev.id].start = ev.start;
-    this.myEvents[ev.id].end = ev.end;
-
-    this.ref.current.getApi().getEventById(ev.id).remove();
-    this.ref.current.getApi().addEvent(this.myEvents[ev.id]);
-
-    return true;
-  };
+  
 
   
     onDeleteEvent() {
@@ -307,16 +333,15 @@ class ToDoList extends Component {
           let EventID = this.selEventID;
           let delevent = this.ref.current.getApi().getEventById(EventID);
           if (delevent) {
-            delevent.remove();
+            axios.delete("http://localhost:8000/api/events/" + this.selEventID).then(() => {
+              window.alert("イベントを削除しました。");
+              this.setState({ formInview: false });
+              this.fetchEvents();
+          })
           }
-  
-          this.myEvents[EventID] = {
-            id: EventID,
-            start: "",
-            end: "",
-          };
-          window.alert("イベントを削除しました。");
-          this.setState({ formInview: false });
+
+          
+
         }
       }
     }
@@ -324,6 +349,8 @@ class ToDoList extends Component {
     render() {
       return (
           <div className="container">
+            <Sidebar />
+            <div className='calendar-container'>
           <FullCalendar
             locale="ja" // 日本語
             initialView="timeGridWeek"
@@ -348,11 +375,16 @@ class ToDoList extends Component {
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
             ref={this.ref}
             weekends={true} // 週末表示
-            events={this.myEvents} // 起動時に登録するイベント
+            events={this.state.events} // 起動時に登録するイベント
             select={this.handleSelect} // カレンダー範囲選択時
             eventClick={this.handleClick} // イベントクリック時
+            slotMinTime= "08:00:00"
+            
+            
             />
             {this.renderForm()}
+            </div>
+            
             
           </div>
       );

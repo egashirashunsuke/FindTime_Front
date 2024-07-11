@@ -1,0 +1,73 @@
+.calendar-container {
+  flex-grow: 1; /* 残りのスペースをすべて使用 */
+  height: 100%;
+  padding: 40px;
+}
+
+
+  .container__form {
+    display: none; /* 初期状態は非表示 */
+    position: absolute;
+    background-color: white;
+    z-index: 1000;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  .container__form.inview {
+    display: block; /* inviewクラスがある場合は表示 */
+  }
+  
+  /* FullCalendar全体のカスタマイズ */
+  .fc {
+    font-family: 'Arial, sans-serif';
+    height: 100%;
+    width: 100%;
+  }
+  
+  /* カレンダーのヘッダーのカスタマイズ */
+  .fc-toolbar-title {
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .fc-button {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    padding: 5px 10px;
+  }
+  
+  .fc-button:hover {
+    background-color: #0fa377;
+    border-color: #004085;
+  }
+  
+
+  .fc-daygrid-day {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+  }
+  
+  .fc-day-today {
+    background-color: #e9ecef !important;
+  }
+  
+  /* イベントのカスタマイズ */
+  .fc-event {
+    background-color: #67e78d;
+    border-color: #67e78d;
+    color: white;
+    padding: 5px;
+    border-radius: 4px;
+  }
+  
+  .fc-event:hover {
+    background-color: #50ce78;
+    border-color: #004085;
+  }
+  
+
+

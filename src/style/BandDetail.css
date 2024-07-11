@@ -1,0 +1,23 @@
+.groupdetail_container {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1; /* 残りのスペースをすべて使用 */
+    height: 100%;
+    width: 100%;
+    padding: 40px;
+}
+
+.members_container {
+    flex: 0 0 180px;
+    
+}
+
+.members_container li {
+    list-style-type: none; /* リストの・を削除 */
+}
+
+.bandcalendar_container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}

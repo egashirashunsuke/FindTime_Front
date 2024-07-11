@@ -1,0 +1,52 @@
+
+.bandform_container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+
+.create_group_container {
+    flex: 1;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+.join_group_container {
+    flex: 1;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+.create_group_title {
+    text-align: center;
+    padding: 15px;
+}
+
+.join_group_title {
+    text-align: center;
+    padding: 15px;
+}
+
+.bandform_form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.groupForm {
+    width: 400px;
+    padding: 10px;
+}
+
+.groupButton {
+    width: 200px;
+    padding: 10px;
+}

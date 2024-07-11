@@ -5,7 +5,7 @@ import './Login.css';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-export default function Login() {//url覚えられてもいいように対策しないと
+export default function Login() {
     const navigate = useNavigate();
     const [errorMsg,setErrorMsg] = useState("");
 
@@ -38,7 +38,7 @@ export default function Login() {//url覚えられてもいいように対策し
 
 
     const loginSuccess = () => {
-        navigate("/home");
+        navigate("/Home");
     }
 
     const loginErrorMsg = () => {
@@ -92,7 +92,7 @@ export default function Login() {//url覚えられてもいいように対策し
                         <button
                             type="submit"
                             className="submitButton"
-                        >ログイン
+                        >サインイン
                         </button>
                         <button
                             type="button"
