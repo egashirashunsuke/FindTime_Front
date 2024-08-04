@@ -1,4 +1,4 @@
-import { useState } from "react";
+
 import { useForm} from 'react-hook-form';
 import { ErrorMessage } from "@hookform/error-message";
 import './Login.css';
@@ -7,7 +7,7 @@ import axios from "axios";
 
 export default function Login() {
     const navigate = useNavigate();
-    const [errorMsg,setErrorMsg] = useState("");
+    
 
     const {
         register,
@@ -19,18 +19,15 @@ export default function Login() {
     });
 
     const onSubmit = (data) => {
-        axios.post("http://localhost:8000/login",{
+        axios.post("http://localhost:8000/signup",{
             name: data.username,
             password: data.password
         }).then((res) =>{
             if (res.status === 200){
-                localStorage.setItem("token",res.data.token)
                 loginSuccess();
             }
           })
-          .catch(error => {
-            loginErrorMsg();
-          });
+          //ユーザ名とパスワードが一致してたらまずいね
 
 
 
@@ -38,11 +35,7 @@ export default function Login() {
 
 
     const loginSuccess = () => {
-        navigate("/Home");
-    }
-
-    const loginErrorMsg = () => {
-        setErrorMsg("ユーザ名もしくはパスワードが間違っています");
+        navigate("/login");
     }
 
     const clearForm = () => {
@@ -52,10 +45,9 @@ export default function Login() {
     return (
         <div className="formContainer">
             <form onSubmit={handleSubmit(onSubmit)}>
-                <h1>ログイン</h1>
+                <h1>サインイン</h1>
                 <hr />
                 <div className="uiForm">
-                    <p className="errorMsg">{errorMsg}</p>
                     <div className="formField">
                         <label htmlFor="userID">ユーザ名</label>
                         <input

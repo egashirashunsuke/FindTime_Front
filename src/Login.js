@@ -49,6 +49,10 @@ export default function Login() {//url覚えられてもいいように対策し
         reset();
     }
 
+    const navigateSignin = () => {
+        navigate("/signin")
+    }
+
     return (
         <div className="formContainer">
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -65,8 +69,8 @@ export default function Login() {//url覚えられてもいいように対策し
                             {...register('username',{
                                 required: 'ユーザ名を入力してください',
                                 maxLength: {
-                                    value: 20,
-                                    message: '20文字以内で入力してください'
+                                    value: 10,
+                                    message: '10文字以内で入力してください'
                                 },
                             })}
                         />
@@ -100,8 +104,10 @@ export default function Login() {//url覚えられてもいいように対策し
                             onClick={clearForm}
                         >クリア</button>
                     </div>
+                    <button onClick={navigateSignin}>サインインへ</button>
                 </div>
             </form>
+            
         </div>
     )
 }

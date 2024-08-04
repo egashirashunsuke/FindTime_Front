@@ -4,6 +4,17 @@ import { useNavigate } from "react-router-dom";
 
 function Sidebar() {
     const navigate = useNavigate();
+
+    const handleNavigation = (value) => {
+        if (value.link === "/logout") {
+            localStorage.removeItem('token');
+            alert("ログアウトしました")
+            navigate(`/`)
+        }else{
+            navigate(value.link)
+        }
+        
+    }
     
     return <div className="Sidebar">
         <ul className="SidebarList">
@@ -14,9 +25,11 @@ function Sidebar() {
                         key={key}
                         id={isActive ? "active" : ""} 
                         className="row" 
-                        onClick={() =>{
-                        navigate(value.link)
-                    }}
+                        // onClick={() =>{
+                        // navigate(value.link)
+                        onClick={ () => {
+                            handleNavigation(value)
+                        }}
                     >
                         <div id = "icon"> {value.icon}</div>
                         <div id = "title"> {value.title}</div>

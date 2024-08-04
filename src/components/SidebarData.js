@@ -3,6 +3,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import GroupsIcon from '@mui/icons-material/Groups';
 import ContactSupportIcon from '@mui/icons-material/ContactSupport';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 export const SidebarDate = [
     {
@@ -24,6 +25,10 @@ export const SidebarDate = [
         title: "グループの作成/参加",
         icon: <PersonAddAlt1Icon />,
         link: "/form",
-    },
+    },{
+        title: "ログアウト",
+        icon: <LogoutIcon />,
+        link: "/logout",
+    }
 ]
 
