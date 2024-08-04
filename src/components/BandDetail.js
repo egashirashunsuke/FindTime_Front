@@ -9,6 +9,9 @@ import interactionPlugin from "@fullcalendar/interaction";
 import { Checkbox, FormControlLabel } from "@mui/material";
 import "../style/common.css"
 import "../style/BandDetail.css"
+import { Button } from "@mui/base";
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
 
 
@@ -20,6 +23,14 @@ function BandDetail() {
 
     const ref = React.createRef();
 
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
     
 
     const fetchAvailability = useCallback((memberIDs) => {
@@ -55,22 +66,6 @@ function BandDetail() {
     },[getMembers]);
 
 
-       
-
-    // useEffect(() => {
-    //     axios.get(`http://localhost:8000/api/bands/${id}/members`)
-    //     .then((res) => {
-    //         const members = res.data.map(member => ({
-    //             id: member.id,
-    //             name: member.name
-    //         }))
-    //         setBandMembers(members)
-    //     })
-    //     .catch((err) => console.error("Error fetch band members:",err));
-    //     }
-    // );
-
-
 
 
     
@@ -91,7 +86,14 @@ function BandDetail() {
         setSelectedMembers(updatedSelectedMembers)
     }
 
-    
+    const leaveGroup = () => {
+        axios.post(`http://localhost:8000/api/bands/${id}/leave`)
+    .then((res) => {
+        if (res.status === 200){
+            window.alert("脱退しました")
+        }
+    })
+}    
 
 
 
@@ -100,7 +102,30 @@ function BandDetail() {
             <Sidebar />
                 <div className="groupdetail_container">
                 <div className="members_container">
+                    <Button
+                        id = "basic-button"
+                        aria-controls={open ? `basic-menu` : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? 'true' : undefined}
+                        onClick={handleClick}
+                    >
+                        Menu
+                    </Button>
+                    <Menu
+                    id="basic-menu"
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleClose}
+                    MenuListProps={{
+                        'aria-labelledby': 'basic-button',
+                    }}
+                    >
+                        <MenuItem onClick={leaveGroup}>グループを退会</MenuItem>
+                    </Menu>
+                    <div>
                     メンバー
+                    </div>
+                    
                     {bandMembers.map((member,index) => {
                         return(
                             <li key={member.id}>
@@ -116,7 +141,7 @@ function BandDetail() {
                 <div className="bandcalendar_container">
                 <FullCalendar
                     locale="ja" // 日本語
-                    initialView="timeGridWeek"
+                    initialView="dayGridMonth"
                     slotDuration="00:30:00" // 表示する時間軸の最小値
                     selectable={true} 
                     allDaySlot={false} 
@@ -147,4 +172,4 @@ function BandDetail() {
 
 }
 
-export default BandDetail
+export default BandDetail;
