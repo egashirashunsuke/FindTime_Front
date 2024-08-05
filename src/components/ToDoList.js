@@ -168,7 +168,7 @@ class ToDoList extends Component {
       }
     
     fetchEvents = () => {
-      axios.get("http://localhost:8000/api/events").then((res) =>{
+      axios.get(`${process.env.REACT_APP_BASE_URL}/api/events`).then((res) =>{
         const events = res.data.map(event => ({
           id: event.id,
           start: event.start_time,
@@ -243,7 +243,7 @@ class ToDoList extends Component {
       end_time: endtime,
     };
 
-    axios.post("http://localhost:8000/api/events",event).then((res) =>{
+    axios.post(`${process.env.REACT_APP_BASE_URL}/api/events`,event).then((res) =>{
       if (res.status === 200){
         this.fetchEvents();
         this.setState({formInview:false});
@@ -311,7 +311,7 @@ class ToDoList extends Component {
         let delevent = this.ref.current.getApi().getEventById(EventID);
         if (delevent) {
           // delevent.remove();
-          axios.put("http://localhost:8000/api/events/" + this.selEventID,event).then(() => {
+          axios.put(`${process.env.REACT_APP_BASE_URL}/api/events/` + this.selEventID,event).then(() => {
         })
         }
 
@@ -333,7 +333,7 @@ class ToDoList extends Component {
           let EventID = this.selEventID;
           let delevent = this.ref.current.getApi().getEventById(EventID);
           if (delevent) {
-            axios.delete("http://localhost:8000/api/events/" + this.selEventID).then(() => {
+            axios.delete(`${process.env.REACT_APP_BASE_URL}/api/events/` + this.selEventID).then(() => {
               window.alert("イベントを削除しました。");
               this.setState({ formInview: false });
               this.fetchEvents();

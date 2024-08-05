@@ -34,7 +34,7 @@ function BandDetail() {
     
 
     const fetchAvailability = useCallback((memberIDs) => {
-        axios.post(`http://localhost:8000/api/bands/${id}/freetimes`,{
+        axios.post(`${process.env.REACT_APP_BASE_URL}/api/bands/${id}/freetimes`,{
             member_ids: memberIDs
         }).then((res) =>{
             const availabilities = res.data.map(avail => ({
@@ -47,7 +47,7 @@ function BandDetail() {
     },[id]);
 
     const getMembers = useCallback(() => {
-        axios.get(`http://localhost:8000/api/bands/${id}/members`)
+        axios.get(`${process.env.REACT_APP_BASE_URL}/api/bands/${id}/members`)
     .then((res) => {
         const members = res.data.map(member => ({
             id: member.id,
@@ -87,7 +87,7 @@ function BandDetail() {
     }
 
     const leaveGroup = () => {
-        axios.post(`http://localhost:8000/api/bands/${id}/leave`)
+        axios.post(`${process.env.REACT_APP_BASE_URL}/api/bands/${id}/leave`)
     .then((res) => {
         if (res.status === 200){
             window.alert("脱退しました")

@@ -12,7 +12,7 @@ function Band() {
     const navigate = useNavigate();
     
     const getMybands = () => {
-        axios.get("http://localhost:8000/api/bands").then((res) => {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/api/bands`).then((res) => {
             const bands = res.data.map(band => ({
                 id: band.id,
                 name: band.name
