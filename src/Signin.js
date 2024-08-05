@@ -28,7 +28,7 @@ export default function Login() {
             }
           })
           //ユーザ名とパスワードが一致してたらまずいね
-
+          console.log(`${process.env.REACT_APP_BASE_URL}/signup`)
 
 
     };
