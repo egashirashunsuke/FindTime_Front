@@ -19,7 +19,7 @@ export default function Login() {
     });
 
     const onSubmit = (data) => {
-        axios.post("http://localhost:8000/signup",{
+        axios.post(`${process.env.REACT_APP_BASE_URL}/signup`,{
             name: data.username,
             password: data.password
         }).then((res) =>{
