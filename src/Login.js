@@ -19,7 +19,7 @@ export default function Login() {//url覚えられてもいいように対策し
     });
 
     const onSubmit = (data) => {
-        axios.post("http://localhost:8000/login",{
+        axios.post(`${process.env.REACT_APP_BASE_URL}/login`,{
             name: data.username,
             password: data.password
         }).then((res) =>{
