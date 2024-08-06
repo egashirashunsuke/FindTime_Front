@@ -35,7 +35,7 @@ export default function Login() {
 
 
     const loginSuccess = () => {
-        navigate("/login");
+        navigate("/");
     }
 
     const clearForm = () => {
