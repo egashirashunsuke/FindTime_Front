@@ -27,7 +27,7 @@ function BandForm() {
     const CreateSubmit = (data) => {
         console.log(data.groupname)
         
-        axios.post("http://localhost:8000/api/bands",{
+        axios.post(`${process.env.REACT_APP_BASE_URL}/api/bands`,{
             name: data.groupname
         }).then((res) => {
             if (res.status === 200){
@@ -40,7 +40,7 @@ function BandForm() {
 
     const JoinSubmit = (data) => {
         console.log(data.joinid)
-        axios.post("http://localhost:8000/api/bands/" + data.joinid + "/members").then((res) => {
+        axios.post(`${process.env.REACT_APP_BASE_URL}` + data.joinid + "/members").then((res) => {
             if (res.status === 200){
                 window.alert("グループに参加しました")
             }
