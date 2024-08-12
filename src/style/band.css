@@ -6,7 +6,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 30px;
+    gap: 40px;
 }
 
 .group_paper:hover {
@@ -16,13 +16,43 @@
 
 .group_paper {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 180px;
-    height: 120px;
+    height: 128px;
+    padding: 10px;
 }
+
+
+.IconSpace {
+    width: 160px;
+}
+
+.favoriteIcon {
+    padding: 0%;
+    width: auto;
+    height: auto;
+}
+
 
 .group_name_id {
     text-align: center;
+    flex-grow: 1; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    font-weight: bold;
 }
+
+.band_id {
+    text-align: center;
+    font-size: 12px;
+    margin-top: auto;
+}
+
+
+
+
 
