@@ -6,6 +6,7 @@ import Band from "./components/Band"
 import UseCase from "./components/UseCase"
 import BandForm from "./components/BandForm";
 import BandDetail from "./components/BandDetail";
+import OpinionForm from "./components/OpinionForm";
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
 				<Route path={`/usecase`} element={<UseCase />}/>
 				<Route path={`/form`} element={<BandForm />}/>
 				<Route path={`/band/banddetail/:id`} element={<BandDetail />}/>
+				<Route path={`/opinion`} element={<OpinionForm />}/>
 			</Routes>
 		</BrowserRouter>
 	)
