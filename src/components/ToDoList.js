@@ -8,8 +8,9 @@ import axios from "axios";
 import "../style/ToDoList.css";
 import "../style/common.css";
 import Sidebar from './Sidebar';
-import { Modal } from '@mui/base';
+import { Modal } from '@mui/material';
 import { Box } from '@mui/material';
+import ja from 'date-fns/locale/ja'
 
 const token = localStorage.getItem("token");
 
@@ -174,9 +175,9 @@ const ToDoList = () => {
       <Box sx={{
         position: 'absolute',
         top: '50%',
-        left: '50%',
+        left: '60%',
         transform: 'translate(-50%, -50%)',
-        width: 400,
+        width: 220,
         bgcolor: 'background.paper',
         border: '2px solid #000',
         boxShadow: 24,
@@ -202,7 +203,7 @@ const ToDoList = () => {
       <p className="container__form__label">開始日時</p>
       <DatePicker
         className="container__form__datetime"
-        locale="ja"
+        locale={ja}
         dateFormat="yyyy/MM/d HH:mm"
         selected={inputStart}
         showTimeSelect
@@ -219,7 +220,7 @@ const ToDoList = () => {
       <p className="container__form__label">終了日時</p>
       <DatePicker
         className="container__form__datetime"
-        locale="ja"
+        locale={ja}
         dateFormat="yyyy/MM/d HH:mm"
         selected={inputEnd}
         showTimeSelect
