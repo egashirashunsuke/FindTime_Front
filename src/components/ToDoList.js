@@ -8,6 +8,9 @@ import axios from "axios";
 import "../style/ToDoList.css";
 import "../style/common.css";
 import Sidebar from './Sidebar';
+import { Modal } from '@mui/material';
+import { Box } from '@mui/material';
+import ja from 'date-fns/locale/ja'
 
 const token = localStorage.getItem("token");
 
@@ -30,9 +33,9 @@ const ToDoList = () => {
   const [inputStart, setInputStart] = useState(new Date());
   const [inputEnd, setInputEnd] = useState(new Date());
 
-  const [formPosition, setFormPosition] = useState({ top: 0, left: 0 });
   const [events, setEvents] = useState([]);
   const [selectedEventID, setSelectedEventID] = useState(null);
+  const calendarRef = useRef(null);
 
   useEffect(() => {
     fetchEvents();
@@ -55,16 +58,11 @@ const ToDoList = () => {
   const handleSelect = (selectInfo) => {
     const start = new Date(selectInfo.start);
     const end = new Date(selectInfo.end);
-    const position = {
-      top: selectInfo.jsEvent.clientY,
-      left: selectInfo.jsEvent.clientX,
-    };
 
     setInputStart(start);
     setInputEnd(end);
     setIsChange(false);
     setFormInview(true);
-    setFormPosition(position);
   };
 
   const handleClick = (info) => {
@@ -79,16 +77,11 @@ const ToDoList = () => {
 
     const start = new Date(selEvent.start);
     const end = new Date(selEvent.end);
-    const position = {
-      top: info.jsEvent.clientY,
-      left: info.jsEvent.clientX,
-    };
 
     setInputStart(start);
     setInputEnd(end);
     setIsChange(true);
     setFormInview(true);
-    setFormPosition(position);
   };
 
   const onAddEvent = async () => {
@@ -171,23 +164,27 @@ const ToDoList = () => {
     return ("0" + number).slice(-2);
   };
 
-  const renderForm = () => {
-    const { top, left } = formPosition;
-    return (
-      <div
-        className={formInview ? "container__form inview" : "container__form"}
-        style={{
-          top: top,
-          left: left,
-          position: 'absolute',
-          backgroundColor: 'white',
-          zIndex: 1000,
-          padding: '10px',
-          border: '1px solid #ccc',
-          borderRadius: '5px'
-        }}
-      >
-        <form>
+  const renderModal = () => (
+    <Modal
+      open={formInview}
+      onClose={() => setFormInview(false)}
+      aria-labelledby="modal-title"
+      aria-describedby="modal-description"
+      style={{ zIndex: 1300 }} 
+    >
+      <Box sx={{
+        position: 'absolute',
+        top: '50%',
+        left: '60%',
+        transform: 'translate(-50%, -50%)',
+        width: 220,
+        bgcolor: 'background.paper',
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 4,
+        zIndex: 1300
+      }}>
+        <div>
           {isChange ? (
             <div className="container__form__header">空き時間を変更</div>
           ) : (
@@ -196,17 +193,17 @@ const ToDoList = () => {
           <div>{renderStartTime()}</div>
           <div>{renderEndTime()}</div>
           <div>{renderBtn()}</div>
-        </form>
-      </div>
-    );
-  };
+        </div>
+      </Box>
+    </Modal>
+  );
 
   const renderStartTime = () => (
     <>
       <p className="container__form__label">開始日時</p>
       <DatePicker
         className="container__form__datetime"
-        locale="ja"
+        locale={ja}
         dateFormat="yyyy/MM/d HH:mm"
         selected={inputStart}
         showTimeSelect
@@ -223,7 +220,7 @@ const ToDoList = () => {
       <p className="container__form__label">終了日時</p>
       <DatePicker
         className="container__form__datetime"
-        locale="ja"
+        locale={ja}
         dateFormat="yyyy/MM/d HH:mm"
         selected={inputEnd}
         showTimeSelect
@@ -304,7 +301,7 @@ const ToDoList = () => {
           eventClick={handleClick}
           slotMinTime="08:00:00"
         />
-        {renderForm()}
+        {renderModal()}
       </div>
     </div>
   );
