@@ -1,17 +1,23 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import Sidebar from './Sidebar';
 
-function OpinionForm(props) {
-  return (
-    <div>
-      
+
+
+function OpinionForm() {
+    
+  
+    return (
+      <div className='container'>
+        <Sidebar />
+        <div className='main_container'>
+            <div className='bandform_container'>
+                
+                
+            </div>
+</div>
     </div>
-  )
-}
-
-OpinionForm.propTypes = {
-
-}
-
+    );
+  };
+  
 export default OpinionForm
 

@@ -6,12 +6,15 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import { Checkbox, FormControlLabel } from "@mui/material";
+import { Checkbox, FormControlLabel, InputLabel } from "@mui/material";
 import "../style/common.css"
 import "../style/BandDetail.css"
-import { Button } from "@mui/base";
+import { Button } from "@mui/material";
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import Box from '@mui/material/Box';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 
 
@@ -25,6 +28,14 @@ function BandDetail() {
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
+
+    const [age, setAge] = React.useState('');
+    const duration_handleChange = (event) => {
+        setAge(event.target.value);
+      };
+
+
+
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -45,6 +56,7 @@ function BandDetail() {
         })
         .catch((err) => console.error("Error fetching availability:",err))
     },[id]);
+
 
     const getMembers = useCallback(() => {
         axios.get(`${process.env.REACT_APP_BASE_URL}/api/bands/${id}/members`)
@@ -76,6 +88,7 @@ function BandDetail() {
         }
     }, [selectedMembers,fetchAvailability]);
 
+
     const handleChange = (e,memberID) => {
         let updatedSelectedMembers;
         if (e.target.checked){
@@ -103,6 +116,7 @@ function BandDetail() {
                 <div className="groupdetail_container">
                 <div className="members_container">
                     <Button
+                        variant="contained"
                         id = "basic-button"
                         aria-controls={open ? `basic-menu` : undefined}
                         aria-haspopup="true"
@@ -122,8 +136,42 @@ function BandDetail() {
                     >
                         <MenuItem onClick={leaveGroup}>グループを退会</MenuItem>
                     </Menu>
+                    {/* <Box sx={{ minWidth: 120 }}>
+                    <FormControl variant="standard" sx={{ m: 1, minWidth: 80 }}>
+                        <InputLabel id="demo-simple-select-label">duration</InputLabel>
+                        <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={age}
+                        label="Age"
+                        onChange={duration_handleChange}
+                        >
+                        <MenuItem value={10}>Ten</MenuItem>
+                        <MenuItem value={20}>Twenty</MenuItem>
+                        <MenuItem value={30}>Thirty</MenuItem>
+                        </Select>
+                    </FormControl>
+                    </Box>
+                    <Box sx={{ minWidth: 120 }}>
+                    <FormControl variant="standard" sx={{ m: 1, minWidth: 80 }}>
+                        <InputLabel id="demo-simple-select-label">mumber of members</InputLabel>
+                        <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={age}
+                        label="Age"
+                        onChange={duration_handleChange}
+                        >
+                        <MenuItem value={1}>Ten</MenuItem>
+                        <MenuItem value={2}>Twenty</MenuItem>
+                        <MenuItem value={3}>Thirty</MenuItem>
+                        <MenuItem value={4}>Thirty</MenuItem>
+                        <MenuItem value={5}>Thirty</MenuItem>
+                        </Select>
+                    </FormControl>
+                    </Box> */}
                     <div>
-                    メンバー
+                    <h3 className="text_member">メンバー</h3>
                     </div>
                     
                     {bandMembers.map((member,index) => {

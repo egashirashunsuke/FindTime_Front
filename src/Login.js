@@ -4,6 +4,7 @@ import { ErrorMessage } from "@hookform/error-message";
 import './Login.css';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Button } from "@mui/material";
 
 export default function Login() {//url覚えられてもいいように対策しないと
     const navigate = useNavigate();
@@ -93,18 +94,20 @@ export default function Login() {//url覚えられてもいいように対策し
                     </div>
                     <ErrorMessage errors={errors} name="password" render={({message}) => <span>{message}</span>} />
                     <div className="loginButton">
-                        <button
+                        <Button
+                            variant="contained"
                             type="submit"
                             className="submitButton"
                         >ログイン
-                        </button>
-                        <button
+                        </Button>
+                        <Button
+                            variant="contained"
                             type="button"
                             className="clearButton"
                             onClick={clearForm}
-                        >クリア</button>
+                        >クリア</Button>
                     </div>
-                    <button onClick={navigateSignin}>サインインへ</button>
+                    <Button variant="contained" onClick={navigateSignin}>サインインへ</Button>
                 </div>
             </form>
             

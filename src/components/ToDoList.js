@@ -11,6 +11,8 @@ import Sidebar from './Sidebar';
 import { Modal } from '@mui/material';
 import { Box } from '@mui/material';
 import ja from 'date-fns/locale/ja'
+import ApiCalendar from "react-google-calendar-api";
+import { Button } from '@mui/material';
 
 const token = localStorage.getItem("token");
 
@@ -21,6 +23,17 @@ axios.interceptors.request.use(config => {
 }, error => {
   return Promise.reject(error);
 });
+
+const config = {
+  clientId: "563602060812-1vd4uvgueq3h8268bndlqeigljei587b.apps.googleusercontent.com",
+  apiKey: "AIzaSyC_PzLqviW7S-FD2xWlTLxVZh6eQ5SyXbs",
+  scope: "https://www.googleapis.com/auth/calendar",
+  discoveryDocs: [
+    "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"
+  ]
+};
+
+const apiCalendar = new ApiCalendar(config);
 
 const ToDoList = () => {
   //フォームが表示されているかどうか
@@ -47,7 +60,8 @@ const ToDoList = () => {
       const eventsData = res.data.map(event => ({
         id: event.id,
         start: event.start_time,
-        end: event.end_time
+        end: event.end_time,
+        classNames:["free_event"]
       }));
       setEvents(eventsData);
     } catch (error) {
@@ -268,10 +282,78 @@ const ToDoList = () => {
     </div>
   );
 
+  const handleAuthClick = () => {
+    apiCalendar.handleAuthClick()
+      .then(() => {
+        console.log("Signed in");
+      })
+      .catch((e) => {
+        console.error("Error signing in", e);
+      });
+  };
+
+  const getEvents = () => {
+    apiCalendar.listCalendars()
+    .then(({ result }) => {
+        const calendarIds = result.items.map(calendar => calendar.id);
+        // console.log(calendarIds)
+
+        const allEventsPromises = calendarIds.map(calendarId => {
+            return apiCalendar.listUpcomingEvents(100,calendarId);
+        });
+        // すべてのカレンダーのイベント取得が完了するのを待つ
+        return Promise.all(allEventsPromises);
+    })
+    .then(allEventsResults => {
+        const allEvents = [];
+        allEventsResults.forEach(({ result }) => {
+            allEvents.push(...result.items); // すべてのイベントを一つの配列にまとめる
+        });
+        console.log(allEvents);  // すべてのイベントをコンソールに表示
+
+        const fullCalendarEvents = convertGoogleEventsToFullCalendarEvents(allEvents);
+      setEvents(prevEvents => [...prevEvents, ...fullCalendarEvents]);
+    })
+    .catch((e) => {
+        console.error("Error fetching calendar lists or events", e);
+    });
+  };
+
+  const convertGoogleEventsToFullCalendarEvents = (googleEvents) => {
+    return googleEvents.map(event => ({
+      id: event.id,
+      title: event.summary,
+      start: event.start.dateTime || event.start.date, // どちらかが存在
+      end: event.end.dateTime || event.end.date,       // どちらかが存在
+      url: event.htmlLink,
+      extendedProps: {
+        organizer: event.organizer.displayName || event.organizer.email,
+        creator: event.creator.email,
+      },
+      classNames:["google_calendar_event"]
+    }));
+  };
+  
+
   return (
     <div className="container">
       <Sidebar />
       <div className='calendar-container'>
+        <div className='add_googlecalender'>
+        <Button 
+          variant="contained"
+          onClick={handleAuthClick} 
+          size="small">
+            GoogleCalendarを反映
+        </Button>
+        <Button 
+          variant="contained"
+          onClick={getEvents}
+          size="small">
+            Get Events
+        </Button>
+        </div>
+        
         <FullCalendar
           locale="ja"
           initialView="timeGridWeek"
@@ -302,6 +384,7 @@ const ToDoList = () => {
           slotMinTime="08:00:00"
         />
         {renderModal()}
+        
       </div>
     </div>
   );

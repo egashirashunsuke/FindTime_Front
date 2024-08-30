@@ -6,12 +6,12 @@
   
 .container {
 display: flex;
-flex-direction: row; /* 子要素を横並びに配置 */
-height: 100vh; /* ここを追加 */
+flex-direction: row; 
+height: 100vh; 
 }
 
 .main_container {
-  flex-grow: 1; /* 残りのスペースをすべて使用 */
+  flex-grow: 1; 
   height: 100%;
   padding: 70px;
 }

@@ -9,7 +9,13 @@
 
 .members_container {
     flex: 0 0 180px;
-    
+    display: flex;
+    flex-direction: column;
+
+}
+
+.text_member {
+    margin-top: 10px;
 }
 
 .members_container li {
