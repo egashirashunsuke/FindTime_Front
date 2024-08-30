@@ -33,7 +33,7 @@ export const SidebarDate = [
     },{
         title: "意見箱",
         icon: <CommentIcon />,
-        link: "/question",
+        link: "/opinion",
     }
 ]
 

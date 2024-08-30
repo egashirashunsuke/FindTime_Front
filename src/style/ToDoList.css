@@ -1,73 +1,76 @@
 .calendar-container {
+  display: flex;
+  flex-direction: row;
   flex-grow: 1; /* 残りのスペースをすべて使用 */
   height: 100%;
-  padding: 40px;
+  padding: 30px;
+}
+
+.add_googlecalender {
+  width: 150px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+  justify-content: space-evenly;
 }
 
 
-  .container__form {
-    display: none; /* 初期状態は非表示 */
-    position: absolute;
-    background-color: white;
-    z-index: 1000;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
+/* FullCalendar全体のカスタマイズ */
+.fc {
+  font-family: 'Arial, sans-serif';
+  height: 100%;
+  width: 100%;
+}
 
-  .container__form.inview {
-    display: block; /* inviewクラスがある場合は表示 */
-  }
-  
-  /* FullCalendar全体のカスタマイズ */
-  .fc {
-    font-family: 'Arial, sans-serif';
-    height: 100%;
-    width: 100%;
-  }
-  
-  /* カレンダーのヘッダーのカスタマイズ */
-  .fc-toolbar-title {
-    font-size: 24px;
-    color: #333;
-  }
-  
-  .fc-button {
-    background-color: #007bff;
-    border-color: #007bff;
-    color: white;
-    border-radius: 4px;
-    padding: 5px 10px;
-  }
-  
-  .fc-button:hover {
-    background-color: #0fa377;
-    border-color: #004085;
-  }
-  
+/* カレンダーのヘッダーのカスタマイズ */
+.fc-toolbar-title {
+  font-size: 24px;
+  color: #333;
+}
 
-  .fc-daygrid-day {
-    background-color: #f8f9fa;
-    border: 1px solid #dee2e6;
-  }
+.fc-button {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: white;
+  border-radius: 4px;
+  padding: 5px 10px;
+}
+
+.fc-button:hover {
+  background-color: #0fa377;
   
-  .fc-day-today {
-    background-color: #e9ecef !important;
-  }
-  
-  /* イベントのカスタマイズ */
-  .fc-event {
-    background-color: #67e78d;
-    border-color: #67e78d;
-    color: white;
-    padding: 5px;
-    border-radius: 4px;
-  }
-  
-  .fc-event:hover {
-    background-color: #50ce78;
-    border-color: #004085;
-  }
+}
+
+
+.fc-daygrid-day {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+}
+
+.fc-day-today {
+  background-color: #e9ecef !important;
+}
+
+/* イベントのカスタマイズ */
+.free_event {
+  background-color: #67e78d;
+  border-color: #67e78d;
+  color: white;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.google_calendar_event {
+  background-color: #afadad;
+}
+.google_calendar_event:hover {
+  background-color: #afadad;
+}
+
+.free_event:hover {
+  background-color: #50ce78;
+}
   
 
 
