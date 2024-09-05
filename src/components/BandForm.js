@@ -40,7 +40,7 @@ function BandForm() {
 
     const JoinSubmit = (data) => {
         console.log(data.joinid)
-        axios.post(`${process.env.REACT_APP_BASE_URL}` + data.joinid + "/members").then((res) => {
+        axios.post(`${process.env.REACT_APP_BASE_URL}/api/bands/` + data.joinid + "/members").then((res) => {
             if (res.status === 200){
                 window.alert("グループに参加しました")
             }
