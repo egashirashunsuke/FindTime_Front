@@ -49,14 +49,17 @@ function BandDetail() {
         min_duration: duration
       })
       .then((res) => {
-        console.log(res);
+        console.log(res.data);
         const availabilities = res.data.map((avail) => ({
           start: avail.start_time,
           end: avail.end_time,
         }));
         setEvents(availabilities);
       })
-      .catch((err) => console.error("Error fetching availability:", err));
+      .catch((err) => {
+        console.error("Error fetching availability:", err);
+        setEvents([]);
+  });
   };
 
   // メンバー情報を取得する関数
