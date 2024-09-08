@@ -117,7 +117,6 @@ const ToDoList = () => {
       if (res.status === 200) {
         fetchEvents();
         setFormInview(false);
-        window.alert("設定しました");
       }
     } catch (error) {
       console.error("Error", error);

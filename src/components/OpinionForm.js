@@ -11,7 +11,7 @@ function OpinionForm() {
         <Sidebar />
         <div className='main_container'>
             <div className='bandform_container'>
-                
+            <h1>Comming soon...</h1>
                 
             </div>
 </div>
