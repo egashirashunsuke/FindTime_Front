@@ -35,7 +35,7 @@ export default function Login() {
 
 
     const loginSuccess = () => {
-        navigate("/");
+        navigate(`${process.env.REACT_APP_BASE_URL}`);
     }
 
     const clearForm = () => {

@@ -26,7 +26,7 @@ axios.interceptors.request.use(config => {
 
 const config = {
   clientId: "563602060812-1vd4uvgueq3h8268bndlqeigljei587b.apps.googleusercontent.com",
-  apiKey: `${process.env.API_KEY}`,
+  apiKey: "",
   scope: "https://www.googleapis.com/auth/calendar",
   discoveryDocs: [
     "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"
