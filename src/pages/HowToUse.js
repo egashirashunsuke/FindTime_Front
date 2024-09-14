@@ -1,4 +1,4 @@
-import Sidebar from './Sidebar';
+import Sidebar from '../components/Sidebar';
 import React from 'react';
 import "../style/common.css"
 

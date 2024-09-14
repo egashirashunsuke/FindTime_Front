@@ -1,12 +1,12 @@
 import { BrowserRouter,Routes,Route } from "react-router-dom";
-import ToDoList from "./components/ToDoList";
-import Login from "./Login"
-import Signin from "./Signin"
-import Band from "./components/Band"
-import UseCase from "./components/UseCase"
-import BandForm from "./components/BandForm";
-import BandDetail from "./components/BandDetail";
-import OpinionForm from "./components/OpinionForm";
+import Login from "./pages/Login"
+import SignUp from "./pages/SignUp"
+import HowToUse from "./pages/HowToUse"
+import MyCalendar from "./pages/MyCalendar"
+import GroupOverview from "./pages/GroupOverview"
+import GroupCalendar from "./pages/GroupCalendar";
+import CreateOrJoinGroup from "./pages/CreateOrJoinGroup"
+import OpinionForm from "./pages/OpinionForm";
 
 
 function App() {
@@ -14,13 +14,13 @@ function App() {
 		<BrowserRouter>
 			<Routes>
 				<Route path={`/`} element={<Login/>}/>
-				<Route path={`/signin`} element={<Signin/>}/>
-				<Route path={`/home`} element={<ToDoList/>}/>
-				<Route path={`/band`} element={<Band />}/>
-				<Route path={`/usecase`} element={<UseCase />}/>
-				<Route path={`/form`} element={<BandForm />}/>
-				<Route path={`/band/banddetail/:id`} element={<BandDetail />}/>
-				<Route path={`/opinion`} element={<OpinionForm />}/>
+				<Route path={`/signup`} element={<SignUp/>}/>
+				<Route path={`/howtouse`} element={<HowToUse />}/>
+				<Route path={`/mycalendar`} element={<MyCalendar/>}/>
+				<Route path={`/groupoverview`} element={<GroupOverview />}/>
+				<Route path={`/group/groupcalendar/:id`} element={<GroupCalendar />}/>
+				<Route path={`/createorjoingroup`} element={<CreateOrJoinGroup />}/>
+				<Route path={`/opinionform`} element={<OpinionForm />}/>
 			</Routes>
 		</BrowserRouter>
 	)

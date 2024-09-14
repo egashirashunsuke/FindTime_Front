@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useForm} from 'react-hook-form';
 import { ErrorMessage } from "@hookform/error-message";
-import './Login.css';
+import '../style/Login.css';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Button } from "@mui/material";
@@ -39,7 +39,7 @@ export default function Login() {//url覚えられてもいいように対策し
 
 
     const loginSuccess = () => {
-        navigate("/home");
+        navigate("/mycalendar");
     }
 
     const loginErrorMsg = () => {
@@ -51,7 +51,7 @@ export default function Login() {//url覚えられてもいいように対策し
     }
 
     const navigateSignin = () => {
-        navigate("/signin")
+        navigate("/signup")
     }
 
     return (
