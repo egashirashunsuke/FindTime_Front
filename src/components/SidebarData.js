@@ -10,22 +10,22 @@ export const SidebarDate = [
     {
         title:"使い方",
         icon: <ContactSupportIcon />,
-        link: "/usecase"
+        link: "/howtouse"
     },
     {
-        title: "myスケジュール",
+        title: "myカレンダー",
         icon: <PersonIcon />,
-        link: "/home",
+        link: "/mycalendar",
     },
     {
-        title: "グループスケジュール",
+        title: "グループカレンダー",
         icon: <GroupsIcon />,
-        link: "/band",
+        link: "/groupoverview",
     },
     {
         title: "グループの作成/参加",
         icon: <PersonAddAlt1Icon />,
-        link: "/form",
+        link: "/createorjoingroup",
     },{
         title: "ログアウト",
         icon: <LogoutIcon />,
@@ -33,7 +33,7 @@ export const SidebarDate = [
     },{
         title: "意見箱",
         icon: <CommentIcon />,
-        link: "/opinion",
+        link: "/opinionform",
     }
 ]
 

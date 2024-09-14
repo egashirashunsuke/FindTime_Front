@@ -25,8 +25,6 @@ function Sidebar() {
                         key={key}
                         id={isActive ? "active" : ""} 
                         className="row" 
-                        // onClick={() =>{
-                        // navigate(value.link)
                         onClick={ () => {
                             handleNavigation(value)
                         }}

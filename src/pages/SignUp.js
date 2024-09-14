@@ -1,7 +1,7 @@
 
 import { useForm} from 'react-hook-form';
 import { ErrorMessage } from "@hookform/error-message";
-import './Login.css';
+import '../style/Login.css';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 

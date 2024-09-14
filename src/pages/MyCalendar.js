@@ -7,7 +7,7 @@ import interactionPlugin from "@fullcalendar/interaction";
 import axios from "axios";
 import "../style/ToDoList.css";
 import "../style/common.css";
-import Sidebar from './Sidebar';
+import Sidebar from '../components/Sidebar';
 import { Modal } from '@mui/material';
 import { Box } from '@mui/material';
 import ja from 'date-fns/locale/ja'
