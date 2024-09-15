@@ -104,7 +104,7 @@ export default function Login() {
                             onClick={clearForm}
                         >クリア</Button>
                     </div>
-                    <Button variant="contained" onClick={navigateSignin}>サインインへ</Button>
+                    <Button variant="contained" onClick={navigateSignin}>サインアップへ</Button>
                 </div>
             </form>
             
