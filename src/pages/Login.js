@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Button } from "@mui/material";
 
-export default function Login() {//url覚えられてもいいように対策しないと
+export default function Login() {
     const navigate = useNavigate();
     const [errorMsg,setErrorMsg] = useState("");
 
@@ -19,22 +19,19 @@ export default function Login() {//url覚えられてもいいように対策し
         mode: 'onChange',
     });
 
-    const onSubmit = (data) => {
-        axios.post(`${process.env.REACT_APP_BASE_URL}/login`,{
+    const onSubmit = async (data) => {
+        try {
+            const res = await axios.post(`${process.env.REACT_APP_BASE_URL}/login`,{
             name: data.username,
-            password: data.password
-        }).then((res) =>{
+            password: data.password})
+            
             if (res.status === 200){
                 localStorage.setItem("token",res.data.token)
                 loginSuccess();
-            }
-          })
-          .catch(error => {
+            } 
+        } catch (error) {
             loginErrorMsg();
-          });
-
-
-
+        }
     };
 
 
