@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -16,6 +17,7 @@ import { Button } from '@mui/material';
 
 const token = localStorage.getItem("token");
 
+//リクエストのヘッダーにトークンを設定
 axios.interceptors.request.use(config => {
   config.headers.Authorization = `Bearer ${token}`;
   config.headers["Content-Type"] = "application/json";
@@ -42,7 +44,7 @@ const ToDoList = () => {
   //イベントを追加する操作か変更する操作か
   const [isChange, setIsChange] = useState(false);
 
-  //イベントの開始時刻と終了時刻を管理
+  //イベントの開始時刻と終了時刻
   const [inputStart, setInputStart] = useState(new Date());
   const [inputEnd, setInputEnd] = useState(new Date());
 
@@ -295,7 +297,6 @@ const ToDoList = () => {
     apiCalendar.listCalendars()
     .then(({ result }) => {
         const calendarIds = result.items.map(calendar => calendar.id);
-        // console.log(calendarIds)
 
         const allEventsPromises = calendarIds.map(calendarId => {
             return apiCalendar.listUpcomingEvents(100,calendarId);
@@ -306,9 +307,8 @@ const ToDoList = () => {
     .then(allEventsResults => {
         const allEvents = [];
         allEventsResults.forEach(({ result }) => {
-            allEvents.push(...result.items); // すべてのイベントを一つの配列にまとめる
+            allEvents.push(...result.items); 
         });
-        console.log(allEvents);  // すべてのイベントをコンソールに表示
 
         const fullCalendarEvents = convertGoogleEventsToFullCalendarEvents(allEvents);
       setEvents(prevEvents => [...prevEvents, ...fullCalendarEvents]);
@@ -367,7 +367,7 @@ const ToDoList = () => {
           headerToolbar={{
             start: "prev,next,today",
             center: "title",
-            end: "timeGridWeek",
+            end: "timeGridWeek,dayGridMonth",
           }}
           businessHours={{
             daysOfWeek: [1, 2, 3, 4, 5],
