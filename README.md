@@ -46,6 +46,10 @@ ID:test password:test
 ![image](https://github.com/user-attachments/assets/c82b5d28-3d47-44af-a387-06a2bf22872b)
 
 ## マイスケジュール画面　-空き時間の設定-
+![image](https://github.com/user-attachments/assets/6860c8c6-b0af-4191-b76f-5e1eafc3a3a6)
+
+
+## マイスケジュール画面　-空き時間の設定-
 ![image](https://github.com/user-attachments/assets/e1ebf03a-8527-4778-b28a-99b85e0ff6a4)
 
 ## マイスケジュール画面　-GoogleCalendarと連携-　
