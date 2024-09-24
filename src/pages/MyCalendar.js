@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -9,11 +8,9 @@ import axios from "axios";
 import "../style/ToDoList.css";
 import "../style/common.css";
 import Sidebar from '../components/Sidebar';
-import { Modal } from '@mui/material';
-import { Box } from '@mui/material';
-import ja from 'date-fns/locale/ja'
 import ApiCalendar from "react-google-calendar-api";
 import { Button } from '@mui/material';
+import ModalComponent from '../components/ModalComponent';
 
 const token = localStorage.getItem("token");
 
@@ -37,7 +34,7 @@ const config = {
 
 const apiCalendar = new ApiCalendar(config);
 
-const ToDoList = () => {
+const MyCalendar = () => {
   //フォームが表示されているかどうか
   const [formInview, setFormInview] = useState(false);
 
@@ -179,109 +176,7 @@ const ToDoList = () => {
     return ("0" + number).slice(-2);
   };
 
-  const renderModal = () => (
-    <Modal
-      open={formInview}
-      onClose={() => setFormInview(false)}
-      aria-labelledby="modal-title"
-      aria-describedby="modal-description"
-      style={{ zIndex: 1300 }} 
-    >
-      <Box sx={{
-        position: 'absolute',
-        top: '50%',
-        left: '60%',
-        transform: 'translate(-50%, -50%)',
-        width: 220,
-        bgcolor: 'background.paper',
-        border: '2px solid #000',
-        boxShadow: 24,
-        p: 4,
-        zIndex: 1300
-      }}>
-        <div>
-          {isChange ? (
-            <div className="container__form__header">空き時間を変更</div>
-          ) : (
-            <div className="container__form__header">空き時間を追加</div>
-          )}
-          <div>{renderStartTime()}</div>
-          <div>{renderEndTime()}</div>
-          <div>{renderBtn()}</div>
-        </div>
-      </Box>
-    </Modal>
-  );
-
-  const renderStartTime = () => (
-    <>
-      <p className="container__form__label">開始日時</p>
-      <DatePicker
-        className="container__form__datetime"
-        locale={ja}
-        dateFormat="yyyy/MM/d HH:mm"
-        selected={inputStart}
-        showTimeSelect
-        timeFormat="HH:mm"
-        timeIntervals={10}
-        todayButton="today"
-        onChange={(time) => setInputStart(time)}
-      />
-    </>
-  );
-
-  const renderEndTime = () => (
-    <>
-      <p className="container__form__label">終了日時</p>
-      <DatePicker
-        className="container__form__datetime"
-        locale={ja}
-        dateFormat="yyyy/MM/d HH:mm"
-        selected={inputEnd}
-        showTimeSelect
-        timeFormat="HH:mm"
-        timeIntervals={10}
-        todayButton="today"
-        onChange={(time) => setInputEnd(time)}
-      />
-    </>
-  );
-
-  const renderBtn = () => (
-    <div>
-      {!isChange ? (
-        <div>
-          <input
-            className="container__form__btn_cancel"
-            type="button"
-            value="キャンセル"
-            onClick={() => setFormInview(false)}
-          />
-          <input
-            className="container__form__btn_save"
-            type="button"
-            value="保存"
-            onClick={onAddEvent}
-          />
-        </div>
-      ) : (
-        <div>
-          <input
-            className="container__form__btn_delete"
-            type="button"
-            value="削除"
-            onClick={onDeleteEvent}
-          />
-          <input
-            className="container__form__btn_save"
-            type="button"
-            value="変更"
-            onClick={onChangeEvent}
-          />
-        </div>
-      )}
-    </div>
-  );
+  
 
   const handleAuthClick = () => {
     apiCalendar.handleAuthClick()
@@ -382,11 +277,22 @@ const ToDoList = () => {
           eventClick={handleClick}
           slotMinTime="08:00:00"
         />
-        {renderModal()}
+        <ModalComponent
+          isOpen={formInview}
+          isChange={isChange}
+          inputStart={inputStart}
+          inputEnd={inputEnd}
+          setInputStart={setInputStart}
+          setInputEnd={setInputEnd}
+          onAddEvent={onAddEvent}
+          onChangeEvent={onChangeEvent}
+          onDeleteEvent={onDeleteEvent}
+          handleClose={() => setFormInview(false)}
+        />
         
       </div>
     </div>
   );
 };
 
-export default ToDoList;
+export default MyCalendar;

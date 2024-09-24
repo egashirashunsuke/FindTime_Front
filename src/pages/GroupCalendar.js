@@ -30,8 +30,6 @@ function BandDetail() {
   const [duration, setDuration] = useState(0);
   const duration_handleChange = (event) => {
     setDuration(event.target.value);
-    // const value = event.target.value;
-    // setDuration(Number(value));
   };
 
   const handleClick = (event) => {

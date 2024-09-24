@@ -30,7 +30,7 @@ function Band() {
     },[]);
 
     const handleNavigate = (id) => {
-        navigate(`/band/banddetail/${id}`);
+        navigate(`/group/groupcalendar/${id}`);
     }
 
     const handleFavoriteClick = (event,id) => {
