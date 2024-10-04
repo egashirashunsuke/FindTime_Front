@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
 import "../style/common.css";
-import "../style/band.css";
+import "../style/GroupOverview.css";
 import { IconButton } from '@mui/material';
 import PushPinIcon from '@mui/icons-material/PushPin';
 import PushPinOutlinedIcon from '@mui/icons-material/PushPinOutlined';

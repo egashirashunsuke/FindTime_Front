@@ -1,4 +1,3 @@
-
 import { useForm} from 'react-hook-form';
 import { ErrorMessage } from "@hookform/error-message";
 import '../style/Login.css';
@@ -25,7 +24,7 @@ export default function Login() {
             name: data.username,
             password: data.password
         }).then((res) =>{
-            if (res.status === 200){
+            if (res.status === 200 || res.status === 204) { 
                 loginSuccess();
             }
           })
@@ -37,7 +36,7 @@ export default function Login() {
 
 
     const loginSuccess = () => {
-        navigate(`${process.env.REACT_APP_BASE_URL}`);
+        navigate("/");
     }
 
     const clearForm = () => {
