@@ -2,7 +2,7 @@ import axios from 'axios';
 import Sidebar from '../components/Sidebar';
 import React from 'react';
 import "../style/common.css"
-import "../style/BandForm.css"
+import "../style/CreateOrJoinGroup.css"
 import { Button} from '@mui/material';
 import { useForm} from 'react-hook-form';
 import { ErrorMessage } from "@hookform/error-message";

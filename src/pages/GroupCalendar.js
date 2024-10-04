@@ -8,7 +8,7 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import { Checkbox, FormControlLabel, InputLabel } from "@mui/material";
 import "../style/common.css";
-import "../style/BandDetail.css";
+import "../style/GroupCalendar.css";
 import { Button } from "@mui/material";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
