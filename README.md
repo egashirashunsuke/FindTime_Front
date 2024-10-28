@@ -33,7 +33,7 @@
 ## 成果物のURL
 https://main.ddj42f9bkvns2.amplifyapp.com/
 
-## テストアカウント(任意)
+## テストアカウント
 ID:test password:test
 
 ## ログイン画面
