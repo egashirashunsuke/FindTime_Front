@@ -6,6 +6,8 @@
 - html
 - css
 - AWS Amplify
+- MUI
+- Fullcalendar
 
 ## 開発体制
 個人開発で3か月ほど
